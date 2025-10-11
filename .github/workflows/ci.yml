@@ -106,13 +106,13 @@ jobs:
       run: |
         # Test sum operation
         python sum_five.py 1 2 3 4 5 | grep -q "15.0"
-        
+
         # Test multiply operation
         python sum_five.py --operation multiply 1 2 3 4 5 6 | grep -q "720.0"
-        
+
         # Test error handling
         python sum_five.py 1 2 3 4 && exit 1 || echo "Expected error handled correctly"
-        
+
         echo "All CLI integration tests passed!"
 
     - name: Test performance benchmarks

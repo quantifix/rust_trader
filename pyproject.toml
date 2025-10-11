@@ -75,7 +75,7 @@ addopts = [
 ]
 markers = [
     "unit: Unit tests",
-    "integration: Integration tests", 
+    "integration: Integration tests",
     "property: Property-based tests",
     "slow: Slow running tests",
 ]
