@@ -27,6 +27,28 @@ def sum_five(values: Sequence[float]) -> float:
     return sum(values)
 
 
+def multiply_six(data: Sequence[float]) -> float:
+    """Return the product of exactly six numeric values.
+
+    Args:
+        data: A sequence containing six numeric values. The values may be
+            any type that supports multiplication (int, float, Decimal, etc.).
+
+    Returns:
+        The arithmetic product of the provided values.
+
+    Raises:
+        ValueError: If ``data`` does not contain exactly six elements.
+    """
+    if len(data) != 6:
+        raise ValueError("multiply_six requires exactly six values")
+    
+    result = 1.0
+    for value in data:
+        result *= value
+    return result
+
+
 def parse_numbers(raw_values: Iterable[str]) -> list[float]:
     """Convert an iterable of strings to floating point numbers."""
     numbers: list[float] = []
@@ -42,18 +64,33 @@ def main(argv: Sequence[str] | None = None) -> None:
     """Entry point for the command line interface."""
     import argparse
 
-    parser = argparse.ArgumentParser(description="Sum exactly five numbers.")
+    parser = argparse.ArgumentParser(description="Perform mathematical operations on numbers.")
+    parser.add_argument(
+        "--operation",
+        choices=["sum", "multiply"],
+        default="sum",
+        help="Operation to perform: sum (5 numbers) or multiply (6 numbers)",
+    )
     parser.add_argument(
         "numbers",
         metavar="N",
         type=float,
-        nargs=5,
-        help="Five numeric values to sum",
+        nargs="+",
+        help="Numeric values to process",
     )
 
     args = parser.parse_args(argv)
-    total = sum_five(args.numbers)
-    print(total)
+    
+    if args.operation == "sum":
+        if len(args.numbers) != 5:
+            parser.error("sum operation requires exactly 5 numbers")
+        result = sum_five(args.numbers)
+    elif args.operation == "multiply":
+        if len(args.numbers) != 6:
+            parser.error("multiply operation requires exactly 6 numbers")
+        result = multiply_six(args.numbers)
+    
+    print(result)
 
 
 if __name__ == "__main__":  # pragma: no cover - script entry point
