@@ -4,6 +4,7 @@ This module provides a :func:`sum_five` helper that enforces the
 requirement of summing exactly five numeric values.  A small command line
 interface is also supplied so the script can be executed directly.
 """
+
 from __future__ import annotations
 
 from typing import Iterable, Sequence
@@ -24,7 +25,7 @@ def sum_five(values: Sequence[float]) -> float:
     """
     if len(values) != 5:
         raise ValueError("sum_five requires exactly five values")
-    return sum(values)
+    return float(sum(values))
 
 
 def multiply_six(data: Sequence[float]) -> float:
@@ -42,7 +43,7 @@ def multiply_six(data: Sequence[float]) -> float:
     """
     if len(data) != 6:
         raise ValueError("multiply_six requires exactly six values")
-    
+
     result = 1.0
     for value in data:
         result *= value
@@ -64,7 +65,9 @@ def main(argv: Sequence[str] | None = None) -> None:
     """Entry point for the command line interface."""
     import argparse
 
-    parser = argparse.ArgumentParser(description="Perform mathematical operations on numbers.")
+    parser = argparse.ArgumentParser(
+        description="Perform mathematical operations on numbers."
+    )
     parser.add_argument(
         "--operation",
         choices=["sum", "multiply"],
@@ -80,7 +83,7 @@ def main(argv: Sequence[str] | None = None) -> None:
     )
 
     args = parser.parse_args(argv)
-    
+
     if args.operation == "sum":
         if len(args.numbers) != 5:
             parser.error("sum operation requires exactly 5 numbers")
@@ -89,7 +92,7 @@ def main(argv: Sequence[str] | None = None) -> None:
         if len(args.numbers) != 6:
             parser.error("multiply operation requires exactly 6 numbers")
         result = multiply_six(args.numbers)
-    
+
     print(result)
 
 
