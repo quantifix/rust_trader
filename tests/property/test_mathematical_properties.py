@@ -34,7 +34,9 @@ class TestSumFiveProperties:
         result2 = sum_five(reversed_numbers)
 
         # Should be equal within floating point precision
-        assert abs(result1 - result2) < 1e-10
+        # Use relative tolerance for large numbers to handle floating-point precision
+        tolerance = max(1e-10, abs(result1) * 1e-14)
+        assert abs(result1 - result2) < tolerance
 
     @given(
         st.lists(
